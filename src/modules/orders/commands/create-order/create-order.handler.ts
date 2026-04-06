@@ -6,7 +6,7 @@ import { Order } from "../../entities/order.entity";
 import { OrderItem } from "../../entities/order-item.entity";
 import { OrderCreatedEvent } from "../../events/order-created.even";
 import { InventoryService } from "src/modules/inventory/inventory.service";
-import { GetProductVariantByIdQuery } from "src/modules/products/queries/get-product-variant-by-id/get-product-variant-by-id.query";
+import { GetProductVariantByIdQuery } from "src/modules/products/application/queries/get-product-variant-by-id/get-product-variant-by-id.query";
 
 @CommandHandler(CreateOrderCommand)
 export class CreateOrderHandler implements ICommandHandler<CreateOrderCommand> {

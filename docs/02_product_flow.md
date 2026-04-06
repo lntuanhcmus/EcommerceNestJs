@@ -18,4 +18,33 @@ Luồng này áp dụng **Eventual Consistency** (Nhất quán cuối). Việc t
 
 ## 📊 Biểu đồ tuần tự (Sequence Diagram)
 
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client
+    participant Controller as ProductController
+    participant Bus as CommandBus
+    participant Handler as CreateProductHandler
+    participant DB as Product DB
+    participant EventBus as EventBus
+    participant Worker as Inventory Context
 
+    %% Main Synchronous Flow
+    Client->>Controller: POST /products (DTO)
+    Controller->>Bus: execute(CreateProductCommand)
+    Bus->>Handler: execute()
+    Handler->>DB: TypeORM: Lưu Product, Options, Variants
+    DB-->>Handler: Thành công (Commit)
+    
+    %% Async Event Emit
+    Handler->>EventBus: publish(ProductCreatedEvent)
+    
+    %% Return response directly
+    Handler-->>Controller: Dữ liệu (ID SP mới, Tên SP)
+    Controller-->>Client: HTTP 201 (Created)
+    
+    %% Background Work
+    Note over EventBus, Worker: [Khối Xử Lý Hậu Trường Bất Đồng Bộ]
+    EventBus-->>Worker: Worker Lắng nghe sự kiện ProductCreated
+    Worker->>Worker: Khởi tạo data vào DB Kho (InventoryItem) cho mã SKU này
+```

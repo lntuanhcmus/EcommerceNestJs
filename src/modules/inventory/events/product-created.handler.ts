@@ -2,7 +2,7 @@ import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { InventoryItem } from '../entities/inventory-item.entity';
-import { ProductCreatedEvent } from '../../products/events/product-created.event'; // Móc nối sang nhà Product
+import { ProductCreatedEvent } from '../../products/application/events/product-created.event'; // Móc nối sang nhà Product
 
 @EventsHandler(ProductCreatedEvent)
 export class InventoryProductCreatedHandler implements IEventHandler<ProductCreatedEvent> {

@@ -7,6 +7,12 @@ import { OrdersModule } from './modules/orders/orders.module';
 import { BullModule } from '@nestjs/bullmq';
 import { CartModule } from './modules/cart/cart.module';
 import { CheckoutModule } from './modules/checkout/checkout.module';
+import { PaymentModule } from './modules/payment/payment.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { CustomerModule } from './modules/customer/customer.module';
+import { UserModule } from './modules/user/user.module';
+import { RouterModule } from '@nestjs/core';
+import { CategoriesModule } from './modules/categories/categories.module';
 
 @Module({
   imports: [
@@ -47,7 +53,22 @@ import { CheckoutModule } from './modules/checkout/checkout.module';
     ProductsModule,
     OrdersModule,
     CartModule,
-    CheckoutModule
+    CheckoutModule,
+    PaymentModule,
+    AuthModule,
+    CustomerModule,
+    UserModule,
+    CategoriesModule,
+    RouterModule.register([
+      {
+        path: 'api/auth',
+        module: AuthModule,
+      },
+      {
+        path: 'api/categories',
+        module: CategoriesModule,
+      }
+    ]),
   ],
 })
 export class AppModule { }

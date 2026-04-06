@@ -5,7 +5,7 @@ import { BadRequestException } from '@nestjs/common';
 import { AddToCartCommand } from './add-to-cart.command';
 import { Cart } from '../../entities/cart.entity';
 import { CartItem } from '../../entities/cart-item.entity';
-import { GetProductVariantByIdQuery } from 'src/modules/products/queries/get-product-variant-by-id/get-product-variant-by-id.query';
+import { GetProductVariantByIdQuery } from 'src/modules/products/application/queries/get-product-variant-by-id/get-product-variant-by-id.query';
 
 @CommandHandler(AddToCartCommand)
 export class AddToCartHandler implements ICommandHandler<AddToCartCommand> {
